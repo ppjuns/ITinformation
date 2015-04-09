@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "com.rabbit.application"
+        minSdkVersion 14
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    /* ViewPager导航条*/
+    compile 'com.jpardogo.materialtabstrip:library:1.0.9'
+    /*浓缩代码findviewbyid*/
+    compile 'com.jakewharton:butterknife:6.0.0'
+    compile 'com.android.support:cardview-v7:21.0.2'
+    compile 'org.jsoup:jsoup:1.8.1'
+    compile 'com.android.support:cardview-v7:21.0.0-rc1'
+    compile files('libs/Volley.jar')
+    compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
+    compile files('libs/ormlite-android-4.49-SNAPSHOT.jar')
+    compile files('libs/ormlite-core-4.49-SNAPSHOT.jar')
+    compile 'de.greenrobot:eventbus:2.4.0'
+    compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
+}

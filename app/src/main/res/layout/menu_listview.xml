@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#fff"
+    android:layout_width="280dp"
+    android:layout_gravity="start"
+    android:layout_height="match_parent"
+    android:clickable="true"
+
+    >
+    <!--<LinearLayout-->
+
+
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:id="@+id/linearLayout"-->
+    <!--android:background="#fff"-->
+    <!--android:orientation="vertical"-->
+    <!--android:layout_weight="2">-->
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--android:background="#00BAD2"-->
+    <!-->-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="50dp"-->
+    <!--android:layout_height="50dp"-->
+    <!--android:id="@+id/imageView"-->
+    <!--android:background="@mipmap/ic_launcher"-->
+
+    <!--android:layout_marginLeft="16dp"-->
+    <!--android:layout_marginStart="2dp"-->
+    <!--android:layout_marginTop="16dp" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="NewText@gmail.com"-->
+    <!--android:id="@+id/textView3"-->
+    <!--android:textColor="#FFF"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignLeft="@+id/imageView"-->
+    <!--android:layout_alignStart="@+id/imageView"-->
+    <!--android:layout_marginBottom="16dp"/>-->
+    <!--</RelativeLayout>-->
+    <!--</LinearLayout>-->
+    <!--<LinearLayout-->
+    <!--android:layout_marginLeft="16dp"-->
+
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:background="#fff"-->
+    <!--android:orientation="vertical"-->
+    <!--android:layout_weight="1"-->
+    <!--android:id="@+id/linearLayout2">-->
+
+    <!--<LinearLayout-->
+    <!--android:orientation="horizontal"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="25dp"-->
+    <!--android:layout_gravity="center_horizontal"-->
+    <!-->-->
+
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="字体大小"-->
+    <!--android:gravity="left"-->
+    <!--android:id="@+id/textView2" />-->
+
+
+    <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+        <RelativeLayout
+            android:id="@+id/relativelayout"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:background="#00BAD2">
+
+            <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageView"
+            android:background="@mipmap/ic_launcher"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="16dp"
+
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NewText@gmail.com"
+
+
+                android:layout_marginBottom="16dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignLeft="@+id/imageView"
+                android:layout_alignStart="@+id/imageView" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/relativelayout">
+
+            <ListView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null"
+                android:fastScrollEnabled="true"
+                android:id="@+id/lv_menu"
+
+             />
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

@@ -170,11 +170,13 @@ public class InfoListviewFragment extends Fragment implements XListView.IXListVi
     //上提加载
     @Override
     public void onLoadMore() {
+
         lvHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
 
                 loadMore();
+
                 bt_up.setVisibility(View.VISIBLE);
                 bt_up.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -186,6 +188,7 @@ public class InfoListviewFragment extends Fragment implements XListView.IXListVi
                 onLoad();
             }
         }, 0);
+
     }
 
 
@@ -223,6 +226,7 @@ public class InfoListviewFragment extends Fragment implements XListView.IXListVi
 
                             if (!"".equals(information.getImg_url()))
                                 informationList.add(information);
+                           adapter.notifyDataSetChanged();
                         }
 
                     }

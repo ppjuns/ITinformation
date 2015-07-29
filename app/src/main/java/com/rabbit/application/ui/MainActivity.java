@@ -1,7 +1,9 @@
 package com.rabbit.application.ui;
 
-import android.animation.ValueAnimator;
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,19 +14,21 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
-import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.rabbit.application.R;
 import com.rabbit.application.adapter.MyFragmentAdapter;
 import com.rabbit.application.ui.fragment.InfoListviewFragment;
@@ -36,9 +40,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends BaseActivity implements ObservableScrollViewCallbacks {
+public class MainActivity extends BaseActivity {
     //声明相关变量
-
+    private SharedPreferences sharedpreferences;
+    private SharedPreferences.Editor editor;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView lvLeftMenu;
@@ -77,10 +82,14 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().setBackgroundDrawable(null);
         mConext = this;
         findViews(); //获取控件
 
-
+        sharedpreferences = getSharedPreferences("textSize", Activity.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
+        editor.putInt("textSize", 14);
+        editor.commit();
         toolbar.setTitle("柚子");//设置Toolbar标题
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF")); //设置标题颜色
 
@@ -123,8 +132,87 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
         pager.setPageMargin(pagerMargin);
         pager.setOffscreenPageLimit(5);
         pager.setCurrentItem(0);
-        String[] data = {"字号大少", "关于"};
+        String[] data = {"字号大少", "夜间模式", "关于"};
         lvLeftMenu.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, data));
+        lvLeftMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                switch (position) {
+                    case 0:
+                        View dialogView = LayoutInflater.from(mConext).inflate(R.layout.textsize, null);
+                        final Dialog textSizeDiaog = new Dialog(mConext);
+                        textSizeDiaog.setContentView(dialogView);
+                        textSizeDiaog.setTitle("字体大小");
+                        textSizeDiaog.setCancelable(true);
+                        textSizeDiaog.setCanceledOnTouchOutside(true);
+                        textSizeDiaog.show();
+
+
+                        WindowManager mWM = (WindowManager) mConext.getSystemService(Context.WINDOW_SERVICE);
+
+                        Display display = mWM.getDefaultDisplay();
+                        Window window = textSizeDiaog.getWindow();
+                        WindowManager.LayoutParams lp = window.getAttributes();
+                        lp.width = (int) (display.getWidth() * 0.8);
+                        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                        window.setAttributes(lp);
+
+                        textSizeDiaog.show();
+                        TextView tv_small = (TextView) dialogView.findViewById(R.id.tv_smallsize);
+                        TextView tv_normal = (TextView) dialogView.findViewById(R.id.tv_normalsize);
+                        TextView tv_big = (TextView) dialogView.findViewById(R.id.tv_bigsize);
+                        TextView tv_superbig = (TextView) dialogView.findViewById(R.id.tv_superbigsize);
+                        TextView tv_cancel = (TextView) dialogView.findViewById(R.id.tv_cancel);
+                       sharedpreferences = getSharedPreferences("textSize", Activity.MODE_PRIVATE);
+                        editor = sharedpreferences.edit();
+                        tv_small.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                editor.putInt("textSize", 13);
+                                editor.commit();
+                                textSizeDiaog.dismiss();
+                            }
+                        });
+                        tv_normal.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                editor.putInt("textSize", 14);
+                                editor.commit();
+                                textSizeDiaog.dismiss();
+                            }
+                        });
+
+                        tv_big.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                editor.putInt("textSize", 16);
+                                editor.commit();
+                                textSizeDiaog.dismiss();
+                            }
+                        });
+                        tv_superbig.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                editor.putInt("textSize", 20);
+                                editor.commit();
+                                textSizeDiaog.dismiss();
+                            }
+                        });
+                        tv_cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                textSizeDiaog.dismiss();
+                            }
+                        });
+
+
+                        break;
+
+
+                }
+            }
+        });
+
 
     }
 
@@ -148,13 +236,13 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
         InfoListviewFragment nextFragment = new InfoListviewFragment().getInstance(Urls.NEXTURL);
         InfoListviewFragment discoveryFragment = new InfoListviewFragment().getInstance(Urls.DISCOVERYURL);
 
-
         list.add(androidFragment);
         list.add(iphoneFragment);
         list.add(wpFragment);
         list.add(digitalFragment);
         list.add(nextFragment);
         list.add(discoveryFragment);
+
 
         mMyPagerAdapter = new MyFragmentAdapter(getSupportFragmentManager(), list);
         pager.setAdapter(mMyPagerAdapter);
@@ -177,110 +265,11 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
     }
 
 
-    @Override
-    public void onScrollChanged(int i, boolean b, boolean b2) {
-
-    }
-
-    @Override
-    public void onDownMotionEvent() {
-
-    }
-
-    @Override
-    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-        if (scrollState == ScrollState.UP) {
-            if (toolbarIsShown()) {
-                hideToolbar();
-            }
-        } else if (scrollState == ScrollState.DOWN) {
-            if (toolbarIsHidden()) {
-                showToolbar();
-            }
-        }
-    }
-
-    private boolean toolbarIsShown() {
-        return toolbar.getTranslationY() == 0;
-    }
-
-    private boolean toolbarIsHidden() {
-        return toolbar.getTranslationY() == -toolbar.getHeight();
-    }
-
-    private void showToolbar() {
-        moveToolbar(0);
-    }
 
 
-    private void hideToolbar() {
-        moveToolbar(-toolbar.getHeight());
-    }
 
-    /**
-     * 将toolbar移动到某个位置
-     *
-     * @param toTranslationY 移动到的Y轴位置
-     */
-    private void moveToolbar(float toTranslationY) {
-        if (toolbar.getTranslationY() == toTranslationY) {
-            return;
-        }
-        //利用动画过渡移动的过程
-        final ValueAnimator animator = ValueAnimator.ofFloat(toolbar.getTranslationY(), toTranslationY).
-                setDuration(200);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float translationY = (Float) animator.getAnimatedValue();
-                toolbar.setTranslationY(translationY);
-                toolbar.setTranslationY(translationY);
-                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) viewGroup.getLayoutParams();
-                lp.height = (int) (getScreenHeight() - translationY - getStatusBarHeight()
-                        - lp.topMargin);
-                if (CURRENT_VERSION >= VERSION_KITKAT) {
-                    lp.height -= getNavigationBarHeight();
-                }
-                Log.i("TEST", "after" + Float.toString(toolbar.getHeight()));
-                viewGroup.requestLayout();
-            }
-        });
-        animator.start();
-    }
 
-    /**
-     * 获取navigation bar的高度
-     *
-     * @return
-     */
-    protected int getNavigationBarHeight() {
-        int result = 0;
-        int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
 
-    protected int getScreenHeight() {
-        DisplayMetrics dm = new DisplayMetrics();
-        this.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        return dm.heightPixels;
-    }
-
-    /**
-     * 获取状态栏的高度
-     *
-     * @return
-     */
-    protected int getStatusBarHeight() {
-        int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
 
 
 }

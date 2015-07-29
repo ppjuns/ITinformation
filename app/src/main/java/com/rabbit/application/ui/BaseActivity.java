@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.rabbit.application.BroadcastReceiver.NetworkChangeReceiver;
 import com.rabbit.application.util.ActivityCollecter;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by Rabbit on 2015/3/27.
@@ -29,6 +30,26 @@ public class BaseActivity extends ActionBarActivity {
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
         mNetworkChangeReceiver = new NetworkChangeReceiver();
         registerReceiver(mNetworkChangeReceiver, intentFilter);
+    }
+
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+
+
+        MobclickAgent.onResume(this);
+        MobclickAgent.updateOnlineConfig(this);
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+MobclickAgent.onPause(this);
+
+
     }
 
     @Override

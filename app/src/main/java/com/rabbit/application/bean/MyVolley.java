@@ -16,12 +16,13 @@ import com.android.volley.toolbox.Volley;
 public class MyVolley {
     private static final String TAG = "MyVolley";
 
-    private static MyVolley instance;
+    private static  MyVolley instance=null ;
     private static RequestQueue mRequestQueue;
     private static ImageLoader mImageLoader;
     private final static int RATE = 8; // 默认分配最大空间的几分之一
 
     private MyVolley(Context context) {
+
         mRequestQueue = Volley.newRequestQueue(context);
 
         // 确定在LruCache中，分配缓存空间大小,默认程序分配最大空间的 1/8
@@ -39,12 +40,13 @@ public class MyVolley {
     /**
      * 初始化Volley相关对象，在使用Volley前应该完成初始化
      *
-     * @param context
+     *
      */
-    public static void init(Context context) {
+    public static MyVolley getInstance(Context context) {
         if (instance == null) {
             instance = new MyVolley(context);
         }
+        return instance;
     }
 
     /**

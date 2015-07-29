@@ -20,19 +20,20 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:21.0.3'
-    /* ViewPager导航条*/
-    compile 'com.jpardogo.materialtabstrip:library:1.0.9'
-    /*浓缩代码findviewbyid*/
-    compile 'com.jakewharton:butterknife:6.0.0'
-    compile 'com.android.support:cardview-v7:21.0.2'
-    compile 'org.jsoup:jsoup:1.8.1'
-    compile 'com.android.support:cardview-v7:21.0.0-rc1'
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:support-v4:22.2.1'
+    compile 'org.jsoup:jsoup:1.8.2'
+    compile 'in.srain.cube:ultra-ptr:1.0.10'
+    compile 'com.jpardogo.materialtabstrip:library:1.1.0'
+    compile 'com.android.support:cardview-v7:22.2.1'
     compile files('libs/Volley.jar')
-    compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
-    compile files('libs/ormlite-android-4.49-SNAPSHOT.jar')
-    compile files('libs/ormlite-core-4.49-SNAPSHOT.jar')
-    compile 'de.greenrobot:eventbus:2.4.0'
-    compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
+    compile files('libs/umeng-analytics-v5.5.3.jar')
+    compile files('libs/umeng_social_sdk.jar')
+    compile files('libs/SocialSDK_QQZone_1.jar')
+    compile files('libs/SocialSDK_QQZone_2.jar')
+    compile files('libs/SocialSDK_QQZone_3.jar')
+    compile files('libs/SocialSDK_WeiXin_1.jar')
+    compile files('libs/SocialSDK_WeiXin_2.jar')
+    compile files('libs/httpmime-4.1.3.jar')
+
 }

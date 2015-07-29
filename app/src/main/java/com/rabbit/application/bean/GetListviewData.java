@@ -31,7 +31,7 @@ public class GetListviewData {
     public GetListviewData(Context context,Handler mHandler) {
         this.mHandler = mHandler;
 
-        MyVolley.init(context);
+        MyVolley.getInstance(context);
 
     }
 
